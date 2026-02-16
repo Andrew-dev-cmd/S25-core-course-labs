@@ -13,6 +13,11 @@ spec:
     metadata:
       labels:
         {{- include "moscow-time.selectorLabels" . | nindent 8 }}
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "myapp-role"
+        vault.hashicorp.com/agent-inject-secret-config: "secret/data/myapp/config"
+
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -34,3 +39,7 @@ spec:
               port: {{ .Values.service.targetPort }}
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          envFrom:
+            - secretRef:
+                name: {{ include "moscow-time.fullname" . }}-secret
+

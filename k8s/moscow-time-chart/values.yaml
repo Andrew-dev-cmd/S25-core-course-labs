@@ -28,3 +28,7 @@ readinessProbe:
   path: /
   initialDelaySeconds: 5
   periodSeconds: 5
+
+secrets:
+  username: "no-commit"
+  password: "no-commit"
