@@ -35,3 +35,11 @@ secrets:
 
 environment: "dev"
 logLevel: "info"
+
+persistence:
+  enabled: true
+  size: 100Mi
+  storageClass: ""
+
+vault:
+  enabled: false

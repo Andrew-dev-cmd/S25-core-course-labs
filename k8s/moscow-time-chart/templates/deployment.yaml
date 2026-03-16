@@ -14,10 +14,13 @@ spec:
       labels:
         {{- include "moscow-time.selectorLabels" . | nindent 8 }}
       annotations:
+        {{- if .Values.vault.enabled }}
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: "myapp-role"
         vault.hashicorp.com/agent-inject-secret-config: "secret/data/myapp/config"
-
+        {{- end }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/env: {{ include (print $.Template.BasePath "/configmap-env.yaml") . | sha256sum }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -40,15 +43,23 @@ spec:
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
           envFrom:
+            {{- if .Values.vault.enabled }}
             - secretRef:
                 name: {{ include "moscow-time.fullname" . }}-secret
+            {{- end }}
             - configMapRef:
                 name: {{ include "moscow-time.fullname" . }}-env
           volumeMounts:
             - name: config-volume
               mountPath: /config
-
+            - name: data-volume
+              mountPath: /data
       volumes:
         - name: config-volume
           configMap:
             name: {{ include "moscow-time.fullname" . }}-config
+        {{- if .Values.persistence.enabled }}
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: {{ include "moscow-time.fullname" . }}-data
+        {{- end }}
