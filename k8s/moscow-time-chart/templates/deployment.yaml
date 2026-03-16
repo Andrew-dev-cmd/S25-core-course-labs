@@ -42,4 +42,13 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "moscow-time.fullname" . }}-secret
+            - configMapRef:
+                name: {{ include "moscow-time.fullname" . }}-env
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
 
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "moscow-time.fullname" . }}-config

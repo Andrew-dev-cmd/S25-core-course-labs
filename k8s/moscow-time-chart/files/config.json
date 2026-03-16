@@ -1,0 +1,7 @@
+{
+  "appName": "Moscow Time Service",
+  "environment": "dev",
+  "featureFlags": {
+    "showVisits": true
+  }
+}

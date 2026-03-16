@@ -32,3 +32,6 @@ readinessProbe:
 secrets:
   username: "no-commit"
   password: "no-commit"
+
+environment: "dev"
+logLevel: "info"
