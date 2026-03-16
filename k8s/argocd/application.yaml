@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: moscow-time-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Andrew-dev-cmd/S25-core-course-labs.git
+    targetRevision: lab13
+    path: k8s/moscow-time-chart
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
