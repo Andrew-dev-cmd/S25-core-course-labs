@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Andrew-dev-cmd/S25-core-course-labs.git
-    targetRevision: lab13
+    targetRevision: lab14
     path: k8s/moscow-time-chart
     helm:
       valueFiles:
