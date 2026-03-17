@@ -83,4 +83,8 @@ spec:
       previewService: {{ include "moscow-time.fullname" . }}-preview
       autoPromotionEnabled: false
     {{- end }}
+
+metadata:
+  annotations:
+    {{- toYaml .Values.podAnnotations | nindent 8 }}
 {{- end }}

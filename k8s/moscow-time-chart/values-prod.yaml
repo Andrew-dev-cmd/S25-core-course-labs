@@ -38,3 +38,6 @@ rollout:
 
 vault:
   enabled: false
+
+podAnnotations:
+  redeploy: "v2"
