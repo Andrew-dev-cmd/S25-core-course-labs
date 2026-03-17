@@ -29,3 +29,12 @@ readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 5
 
+deployment:
+  enabled: false
+
+rollout:
+  enabled: true
+  strategy: blueGreen
+
+vault:
+  enabled: false
