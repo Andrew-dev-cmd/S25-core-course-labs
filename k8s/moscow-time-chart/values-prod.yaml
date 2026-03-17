@@ -40,4 +40,4 @@ vault:
   enabled: false
 
 podAnnotations:
-  redeploy: "v2"
+  redeploy: "bg-v2"
