@@ -43,3 +43,10 @@ persistence:
 
 vault:
   enabled: false
+
+deployment:
+  enabled: true
+
+rollout:
+  enabled: false
+  strategy: canary

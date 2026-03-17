@@ -1,0 +1,17 @@
+{{- if and .Values.rollout.enabled (eq .Values.rollout.strategy "blueGreen") }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "moscow-time.fullname" . }}-preview
+  labels:
+    {{- include "moscow-time.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "moscow-time.selectorLabels" . | nindent 4 }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: http
+{{- end }}

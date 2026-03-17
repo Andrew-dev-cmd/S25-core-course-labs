@@ -28,3 +28,10 @@ readinessProbe:
   path: /
   initialDelaySeconds: 5
   periodSeconds: 5
+
+deployment:
+  enabled: false
+
+rollout:
+  enabled: true
+  strategy: canary
