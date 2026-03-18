@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: moscow-time-stateful
+spec:
+  serviceName: moscow-time-headless
+  replicas: 2
+  selector:
+    matchLabels:
+      app: moscow-time-stateful
+  template:
+    metadata:
+      labels:
+        app: moscow-time-stateful
+    spec:
+      containers:
+        - name: app
+          image: enot0704/moscow-time-app:v1.0
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 100Mi
